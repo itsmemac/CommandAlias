@@ -37,7 +37,7 @@ class CommandHandle(private val plugin: CommandAlias) : CommandExecutor, TabComp
             return true
         }
 
-        when (args[0].toLowerCase()) {
+        when (args[0].lowercase()) {
             "reload" -> handleReload(sender)
             "toggle" -> handleToggle(sender, args)
             else -> msg(sender, correctUsage())
@@ -48,7 +48,7 @@ class CommandHandle(private val plugin: CommandAlias) : CommandExecutor, TabComp
 
     override fun onTabComplete(sender: CommandSender, command: Command, alias: String, args: Array<out String>): MutableList<String> {
         if (args.size == 1) {
-            return listOf("reload", "toggle").filter { s -> s.startsWith(args[0].toLowerCase()) }.toMutableList()
+            return listOf("reload", "toggle").filter { s -> s.startsWith(args[0].lowercase()) }.toMutableList()
         }
 
         return Lists.newArrayList()

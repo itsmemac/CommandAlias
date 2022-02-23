@@ -95,14 +95,14 @@ class CommandAlias : JavaPlugin(), CommandAliasAPI {
             fun onCommand(event: PlayerCommandPreprocessEvent) {
                 val player: Player = event.player
                 val message: String = event.message.replaceFirst("/", "")
-                val messageLower = message.toLowerCase();
+                val messageLower = message.lowercase();
 
                 val args = message.split(" ");
 
                 for ((key, toEx) in commands) {
                     // print("check " + key + " " + toEx.aliases)
                     // Check enabled and either it is equal to the label or the alias contains it
-                    if (!toEx.enabled || (key != messageLower && (!toEx.aliases.contains(args[0].toLowerCase()) && !toEx.aliases.contains(messageLower)))) {
+                    if (!toEx.enabled || (key != messageLower && (!toEx.aliases.contains(args[0].lowercase()) && !toEx.aliases.contains(messageLower)))) {
                         // print(key + " ignore " + toEx.aliases)
                         continue
                     }
@@ -197,11 +197,11 @@ class CommandAlias : JavaPlugin(), CommandAliasAPI {
     /* API Methods */
 
     override fun registerAlias(aliasCommand: AliasCommand) {
-        this.commands[aliasCommand.label.toLowerCase()] = aliasCommand
+        this.commands[aliasCommand.label.lowercase()] = aliasCommand
     }
 
     override fun unregisterAlias(label: String) {
-        this.commands.remove(label.toLowerCase())
+        this.commands.remove(label.lowercase())
     }
 
     override fun toggleAlias(label: String): Boolean {
@@ -213,11 +213,11 @@ class CommandAlias : JavaPlugin(), CommandAliasAPI {
     }
 
     override fun registerRunCondition(runCondition: RunCondition) {
-        this.runConditions[runCondition.getId().toLowerCase()] = runCondition
+        this.runConditions[runCondition.getId().lowercase()] = runCondition
     }
 
     override fun unregisterRunCondition(id: String) {
-        this.runConditions.remove(id.toLowerCase())
+        this.runConditions.remove(id.lowercase())
     }
 
     override fun registerPlaceholderHook(hook: CAHook) {

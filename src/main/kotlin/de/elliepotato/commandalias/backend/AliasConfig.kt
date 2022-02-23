@@ -114,14 +114,14 @@ class AliasConfig(private val plugin: CommandAlias) {
         val commands: MutableMap<String, AliasCommand> = Maps.newHashMap()
         try {
             cfg.getConfigurationSection("commands")!!.getKeys(false).forEach(Consumer { path ->
-                var label = path.toLowerCase()
+                var label = path.lowercase()
                 // enabled
                 val enabled = cfg.getBoolean("commands.$path.enabled", true)
                 // perm
                 val permission = cfg.getString("commands.$path.permission")
                 // aliases
                 val aliases = cfg.getStringList("commands.$path.aliases").stream()
-                        .map { m -> color(m.toLowerCase()) }
+                        .map { m -> color(m.lowercase()) }
                         .collect(Collectors.toList())
                 // console command
                 val consoleCommands =
@@ -138,12 +138,12 @@ class AliasConfig(private val plugin: CommandAlias) {
                 // load run conditions
                 if (cfg.isConfigurationSection("commands.$path.conditions")) {
                     cfg.getConfigurationSection("commands.$path.conditions")!!.getKeys(false)
-                            .forEach { k -> runConditions[k.toLowerCase()] = cfg["commands.$path.conditions.$k"]!! }
+                            .forEach { k -> runConditions[k.lowercase()] = cfg["commands.$path.conditions.$k"]!! }
                 }
 
                 try {
                     val command = AliasCommand(label, enabled, permission, aliases, type, runConditions, consoleCommands)
-                    commands[label.toLowerCase()] = command
+                    commands[label.lowercase()] = command
                 } catch (e: IllegalStateException) {
                     plugin.log("The config is improperly defined! Cannot load alias $path.", Level.SEVERE)
                     plugin.error = "Failed to set alias instance (${e.message})"
@@ -169,9 +169,9 @@ class AliasConfig(private val plugin: CommandAlias) {
      * @return Pair<HashMap<String, AliasCommand> = The new HashMap, boolean (has the map been modified?)
      */
     fun toggleAlias(commands: MutableMap<String, AliasCommand>, label: String): Pair<MutableMap<String, AliasCommand>, Boolean> {
-        val alias: AliasCommand = commands[label.toLowerCase()] ?: return Pair(commands, false)
+        val alias: AliasCommand = commands[label.lowercase()] ?: return Pair(commands, false)
 
-        cfg.set("commands.${alias.serialiseLabel().toLowerCase()}.enabled", !alias.enabled)
+        cfg.set("commands.${alias.serialiseLabel().lowercase()}.enabled", !alias.enabled)
         save()
         alias.enabled = !alias.enabled
 

@@ -28,7 +28,7 @@ class RunConditionGamemode : RunCondition {
     }
 
     override fun meetsConditions(alias: AliasCommand, args: List<String>, player: Player): Boolean {
-        return player.gameMode.name == (alias.runConditions[getId()] as String).toUpperCase()
+        return player.gameMode.name == (alias.runConditions[getId()] as String).uppercase()
     }
 
 }
