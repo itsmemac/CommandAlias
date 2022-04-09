@@ -1,23 +1,26 @@
 buildscript {
-    ext.kotlin_version = '1.6.0'
+    ext.kotlin_version = '1.6.20'
 
     repositories {
         mavenLocal()
         mavenCentral()
+
+        maven { url 'https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-gradle-plugin' }
+
     }
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath ("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.20")
     }
 }
 
 plugins {
-    id "com.github.johnrengelman.shadow" version '6.1.0'
+    id "com.github.johnrengelman.shadow" version '7.1.2'
     id 'java'
 }
 apply plugin: 'kotlin'
 
 group 'de.elliepotato'
-version '1.6.7-RELEASE'
+version '1.6.8-RELEASE'
 
 sourceCompatibility = 1.18
 targetCompatibility = 1.18
@@ -34,26 +37,29 @@ repositories {
     maven { url 'https://repo.codemc.org/repository/maven-public' }
 
     /* PlaceHolderAPI */
-    maven { url 'http://repo.extendedclip.com/content/repositories/placeholderapi/' }
+    maven { url 'https://repo.extendedclip.com/content/repositories/placeholderapi/' }
+
+    /* Kotlin */
+    maven { url 'https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib-jdk8' }
 }
 
 dependencies {
     // Environment
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    compile group: 'org.bstats', name: 'bstats-bukkit', version: '2.2.1'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.20'
+    implementation group: 'org.bstats', name: 'bstats-bukkit', version: '3.0.0'
 
     // Provided dependencies
-    compileOnly group: 'org.spigotmc', name: 'spigot-api', version: '1.18.1-R0.1-SNAPSHOT'
+    compileOnly group: 'org.spigotmc', name: 'spigot-api', version: '1.18.2-R0.1-SNAPSHOT'
 
     // Soft dependencies
-    compileOnly group: 'me.clip', name: 'placeholderapi', version: '2.10.0'
+    compileOnly group: 'me.clip', name: 'placeholderapi', version: '2.11.0'
 }
 
 compileKotlin {
-    kotlinOptions.jvmTarget = "16"
+    kotlinOptions.jvmTarget = "17"
 }
 compileTestKotlin {
-    kotlinOptions.jvmTarget = "16"
+    kotlinOptions.jvmTarget = "17"
 }
 
 shadowJar {
